@@ -2,6 +2,8 @@ package simulation;
 
 public interface Event extends Comparable<Event>{
 
+    // ALL BELOW TO BE IMPLEMENTED IN CHILD CLASSES
+
     public double time(); // returns the time this event will occur
 
     public boolean isValid(); // returns true if this event can occur
