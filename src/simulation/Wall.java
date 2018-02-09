@@ -2,7 +2,7 @@ package simulation;
 
 import simulation.ParticlesModel.Direction;
 
-public class Wall{
+public class Wall {
 
     private Direction direction;
     private int location;
@@ -26,5 +26,3 @@ public class Wall{
     }
 
 }
-
-

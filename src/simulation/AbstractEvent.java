@@ -2,11 +2,13 @@ package simulation;
 
 public abstract class AbstractEvent implements Event {
 
+    private final double t;
+
     /**
      * Constructor for AbstractEvent.
      */
     public AbstractEvent(double time) {
-        // TODO implement the constructor 
+        t = time;
     }
 
     /**
@@ -14,8 +16,7 @@ public abstract class AbstractEvent implements Event {
      */
     @Override
     public double time() {
-        // TODO implement this method
-        return 0;
+        return t;
     }
 
     /**

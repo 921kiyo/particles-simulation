@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
-public class Particle{
+public class Particle {
 
     private static       int count = 0;
     public  static final int BIG   = 30;
-    
+
     private final int    diam;
     private final int    mass;
     private final Color  color;
@@ -18,7 +18,7 @@ public class Particle{
     private int          hits;
     private int          id;
 
-    public Particle(int x, int y, double vx, double vy, int diam, int mass, 
+    public Particle(int x, int y, double vx, double vy, int diam, int mass,
             Color c) {
         this.x    = x;
         this.y    = y;
@@ -47,7 +47,7 @@ public class Particle{
     public int collisions() {
         return hits;
     }
-    
+
     public Shape represent() {
         return new Ellipse2D.Double(x - diam / 2, y - diam / 2, diam, diam);
     }
@@ -55,10 +55,10 @@ public class Particle{
     /*
      * In a collision between p1 and p2, the distance between their positions
      * will be p1.r + p2.r.
-     * The position of Particle p at time (now+t) is 
+     * The position of Particle p at time (now+t) is
      * (p.x + t*p.vx, p.y + t*p.vy).
      * So, the SQUARE of the distance between p1 and p2 at (now+t) is
-     * (p1.x + t*p1.vx - p2.x - t*p2.vx)^2 
+     * (p1.x + t*p1.vx - p2.x - t*p2.vx)^2
      *                     + (p1.y + t*p1.vy - p2.y - t*p2.vy)^2
      * which gives us a quadratic equation in t.
      * We solve this using the quadratic formula:
@@ -76,16 +76,16 @@ public class Particle{
         if (p1 == p2)  { return null; }
         double xDiff  = p1.x - p2.x;
         double yDiff  = p1.y - p2.y;
-        double vxDiff = p1.v.x() - p2.v.x(); 
+        double vxDiff = p1.v.x() - p2.v.x();
         double vyDiff = p1.v.y() - p2.v.y();
         double sep    = (double)p1.diam / 2 + (double)p2.diam / 2;
-        
+
         double a      = vxDiff * vxDiff + vyDiff * vyDiff;
         double b      = 2 * xDiff * vxDiff + 2 * yDiff * vyDiff;
         double c      = xDiff * xDiff + yDiff * yDiff - sep * sep;
         double det    = b * b - 4 * a * c;
         if (det < 0)   { return null; }
-        
+
         double rootDet = Math.sqrt(det);
         double t       = (b * (-1) - rootDet) / (2 * a);
         if (t > 0) {
@@ -119,16 +119,16 @@ public class Particle{
             }
             break;
         }
-    
+
         if (t > 0) {
             c = new ParticleWallCollision(p, w, now + t);
         }
-        
+
         return c;
     }
 
     /**
-     * Updates two colliding particles from their state immediately prior to 
+     * Updates two colliding particles from their state immediately prior to
      * collision to their state immediately after. In particular, the velocities
      * of the particles are updated.
      */
@@ -139,28 +139,28 @@ public class Particle{
         double sep = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
         Vector unitNormal = new Vector(xDiff, yDiff).div(sep);
         Vector unitTangent = new Vector(unitNormal.y() * -1, unitNormal.x());
-        
+
         // translate particle velocities into normal/tangent reference
         double magV1Normal  = p1.v.dot(unitNormal);
         double magV1Tangent = p1.v.dot(unitTangent);
         double magV2Normal  = p2.v.dot(unitNormal);
         double magV2Tangent = p2.v.dot(unitTangent);
-        
-        // find scalar normal velocities after the collision 
+
+        // find scalar normal velocities after the collision
         // (tangential remain same)
-        double newMagV1Normal = 
+        double newMagV1Normal =
                 (magV1Normal * (p1.mass - p2.mass) + 2 * p2.mass * magV2Normal)
                 / (p1.mass + p2.mass);
-        double newMagV2Normal = 
+        double newMagV2Normal =
                 (magV2Normal * (p2.mass - p1.mass) + 2 * p1.mass * magV1Normal)
                 / (p1.mass + p2.mass);
-        
+
         // convert scalar velocities into vectors
         Vector newV1Normal  = unitNormal.mult(newMagV1Normal);
         Vector newV1Tangent = unitTangent.mult(magV1Tangent);
         Vector newV2Normal  = unitNormal.mult(newMagV2Normal);
         Vector newV2Tangent = unitTangent.mult(magV2Tangent);
-        
+
         // convert normal, tangential vectors into x,y vectors
         p1.v = newV1Normal.plus(newV1Tangent);
         p2.v = newV2Normal.plus(newV2Tangent);
@@ -189,5 +189,3 @@ public class Particle{
     }
 
 }
-
-

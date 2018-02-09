@@ -1,7 +1,7 @@
 package simulation;
 
 public abstract class Collision extends AbstractEvent{
-    
+
     /**
      * Constructor for Collision
      */
@@ -15,6 +15,7 @@ public abstract class Collision extends AbstractEvent{
     @Override
     public boolean isValid() {
         // TODO implement his method
+        // Check if both items have had the same number of collisions as we expect
         return false;
     }
 
