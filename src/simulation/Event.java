@@ -1,6 +1,6 @@
 package simulation;
 
-public interface Event extends Comparable<Event>{
+public interface Event extends Comparable<Event> {
 
     // ALL BELOW TO BE IMPLEMENTED IN CHILD CLASSES
 

@@ -2,13 +2,8 @@ package simulation;
 
 public abstract class Tick extends AbstractEvent {
 
-    
-    /**
-     * Constructor for Tick
-     */
-    public Tick(double t, Particle[] ps) {
-        // TODO implement constructor
-    }
+
+    // As a subclass of AbstractEvent, by default calls parent's constructor
 
     /**
      * Returns true if this Tick is (still) valid.

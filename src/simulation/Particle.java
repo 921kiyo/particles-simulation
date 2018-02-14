@@ -18,8 +18,8 @@ public class Particle {
     private int          hits;
     private int          id;
 
-    public Particle(int x, int y, double vx, double vy, int diam, int mass,
-            Color c) {
+    public Particle(int x, int y, double vx, double vy,
+                    int diam, int mass, Color c) {
         this.x    = x;
         this.y    = y;
         v         = new Vector(vx, vy);
