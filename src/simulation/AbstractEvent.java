@@ -9,6 +9,7 @@ public abstract class AbstractEvent implements Event {
      */
     public AbstractEvent(double time) {
         t = time;
+        
     }
 
     /**

@@ -51,10 +51,12 @@ public class ParticlesView implements Runnable {
             }
             
         };
-        screen.setBackground(Color.WHITE);
+        screen.setBackground(Color.YELLOW);
         frame.add(screen);
         frame.pack();
         frame.setVisible(true);
+ 
+
     }
 
 
