@@ -2,8 +2,17 @@ package simulation;
 
 public class ParticleWallCollision extends Collision {
 
-    private Particle p;
     private Wall w;
+
+
+    public ParticleWallCollision(Particle p, Wall w, double time) {
+        super(time, packageParticle(p));
+    }
+
+    private static Particle[] packageParticle(Particle part) {
+        Particle[] particle = {part};
+        return particle;
+    }
 
     /**
      * Passes self to ParticleEventHandler, which knows
@@ -11,10 +20,11 @@ public class ParticleWallCollision extends Collision {
      */
     @Override
     public void happen(ParticleEventHandler h) {
-        // TODO: Do we need to check isValid() here?
-        p.collide(p, w);
-        h.reactTo(this);
-        return;
+        if (this.isValid()) {
+            particles[0].collide(particles[0], w);
+            h.reactTo(this);
+            return;
+        }
     }
 
 }

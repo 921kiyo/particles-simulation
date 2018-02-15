@@ -1,8 +1,10 @@
 package simulation;
 
-public abstract class Tick extends AbstractEvent {
+public class Tick extends AbstractEvent {
 
-
+    public Tick(double time) {
+        super(time);
+    }
     // As a subclass of AbstractEvent, by default calls parent's constructor
 
     /**

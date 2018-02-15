@@ -3,22 +3,32 @@ package simulation;
 public abstract class Collision extends AbstractEvent {
 
     private static double t;
-    private static Particle[2] particles;
-    private static int[2] collisionHistory;
+    public static Particle[] particles;
+    private static int[] collisionHistory;
+
     /**
      * Constructor for Collision
      */
     public Collision(double time, Particle[] ps) {
-        t = time;
+        super(time);
 
-        // This only copies over the pointer to the heap, but that's what we
-        // actually want so we can look into their collision history later
-        particles = ps;
+        t = time;
 
         // Save number of collisions at moment of creation;
         // This won't change, though particles[i].collisons might
-        collisionHistory[0] = particles[0].collisions;
-        collisionHistory[1] = particles[1].collisions;
+
+        int num_part = ps.length;
+
+        Particle[] particles = new Particle[num_part];
+        int[] collisionHistory = new int[num_part];
+
+        // Loop to handle this no matter how many particles passed in
+        for (int i = 0; i < num_part; i++) {
+            particles[i] = ps[i];
+            collisionHistory[i] = particles[i].collisions();
+        }
+
+
     }
 
     /**
@@ -26,10 +36,10 @@ public abstract class Collision extends AbstractEvent {
      */
     @Override
     public boolean isValid() {
-        // Check if both items have not changed their number of collisions
+        // Check if particle(s) have incremented number of collisions
         // since the creation of this collision instact
-        for (int i = 0; i < 2; i++) {
-            if (particles[i].collisions != collisionHistory[i].collisions) {
+        for (int i = 0; i < particles.length; i++) {
+            if (particles[i].collisions() != collisionHistory[i]) {
                 return false;
             }
         }
