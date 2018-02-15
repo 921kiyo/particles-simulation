@@ -21,11 +21,9 @@ public class ParticleWallCollision extends Collision {
      */
     @Override
     public void happen(ParticleEventHandler h) {
-        if (this.isValid()) {
-            particles[0].collide(particles[0], w);
-            h.reactTo(this);
-            return;
-        }
+        Particle.collide(particles[0], w);
+        h.reactTo(this);
+        return;    
     }
 
 }

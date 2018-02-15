@@ -25,8 +25,6 @@ public abstract class Collision extends AbstractEvent {
         for (int i = 0; i < num_part; i++) {
             collisionHistory[i] = ps[i].collisions();
         }
-
-
     }
 
     /**
