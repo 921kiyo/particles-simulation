@@ -63,7 +63,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
         // Remove it, take the bottom right node and put it at the top
         // After that, compare the two children nodes,
         // If empty, throw an exception
-        if(heap.isEmpty()) throw new IllegalStateException();
+//        if(heap.isEmpty()) throw new IllegalStateException();
         T min_value = (T)heap.get(0);
         // Move end of node to the beginning (top)
         heap.set(0, heap.get(size()-1));
