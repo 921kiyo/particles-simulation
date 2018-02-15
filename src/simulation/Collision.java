@@ -2,7 +2,6 @@ package simulation;
 
 public abstract class Collision extends AbstractEvent {
 
-    private static double t;
     public static Particle[] particles;
     private static int[] collisionHistory;
 
@@ -12,20 +11,19 @@ public abstract class Collision extends AbstractEvent {
     public Collision(double time, Particle[] ps) {
         super(time);
 
-        t = time;
-
         // Save number of collisions at moment of creation;
         // This won't change, though particles[i].collisons might
 
-        int num_part = ps.length;
+        int num_part = ps.length; // Will be 1 or 2 only
 
         Particle[] particles = new Particle[num_part];
         int[] collisionHistory = new int[num_part];
-
+        
+        particles = ps;
+        
         // Loop to handle this no matter how many particles passed in
         for (int i = 0; i < num_part; i++) {
-            particles[i] = ps[i];
-            collisionHistory[i] = particles[i].collisions();
+            collisionHistory[i] = ps[i].collisions();
         }
 
 

@@ -4,9 +4,10 @@ public class ParticleWallCollision extends Collision {
 
     private Wall w;
 
-
-    public ParticleWallCollision(Particle p, Wall w, double time) {
+    public ParticleWallCollision(Particle p, Wall wall, double time) {
         super(time, packageParticle(p));
+        
+        w = wall;
     }
 
     private static Particle[] packageParticle(Particle part) {

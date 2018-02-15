@@ -12,19 +12,17 @@ public class ParticleSimulation implements Runnable, ParticleEventHandler {
     private final ParticlesView           screen;
 
     private double                        clock;
+    private MinPriorityQueue<Event>              queue;
 
     /**
      * Constructor.
      */
     public ParticleSimulation(String name, ParticlesModel m) {
-        // TODO implement constructor
-        // model = new ParticlesModel(name, m);
+        model = m;
         screen = new ParticlesView(name, m);
         clock = 1;
         Tick kickoff = new Tick(clock);
-        MinPriorityQueue queue = new MinPriorityQueue();
-
-        run();
+        queue = new MinPriorityQueue<Event>();
     }
 
     /**
@@ -40,10 +38,24 @@ public class ParticleSimulation implements Runnable, ParticleEventHandler {
             e.printStackTrace();
         }
 
-
-
-
         // TODO complete implementing this method
+        Event e = queue.remove();
+        if(e.isValid()){
+            clock = e.time();
+        }
     }
+    
+    public void reactTo(Tick tick) {
+
+//            Thread.sleep(FRAME_INTERVAL_MILLIS);
+//            Tell the display to update
+        queue.add(tick);
+        
+    }
+    
+    public void reactTo(Collision c) {
+        queue.add(c);
+    }
+            
 
 }

@@ -48,6 +48,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     // This is just helper function to see the elements in the list ]
     // TODO Delete this function
     public void print_queue(){
+      System.out.println("tree is now ");
       for(int i = 0; i < heap.size(); i++){
           System.out.println(heap.get(i));
       }
@@ -81,10 +82,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
           int right_child_index = left_child_index + 1;
           // If right child exists and is less than left child,
           // swap it with parent node
-          System.out.println("right_child_index");
-          System.out.println(right_child_index);
           if (right_child_index < size() && heap.get(left_child_index).compareTo(heap.get(right_child_index)) > 0){
-            System.out.println("Right node is smaller");
             if(heap.get(position).compareTo(heap.get(right_child_index)) <= 0) break;
             swapIndex(position, right_child_index);
             position = right_child_index;

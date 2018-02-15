@@ -27,9 +27,8 @@ public class BrownianSimulation {
         }
         
         ParticlesModel   model = new ParticlesModel(w, h, ps);
-        ParticleSimulation sim = 
-                new ParticleSimulation("Brownian Motion", model);        
-        sim.run();
+//        ParticleSimulation sim = new ParticleSimulation("Brownian Motion", model);        
+//        sim.run();
     }
 
 }
