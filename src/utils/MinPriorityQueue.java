@@ -34,8 +34,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
         while( position > 0){
           int parent = (position + 1) / 2 - 1;
           // If heap[parent] is the smallest, break the while loop
-          // if(heap[parent] <= heap[position]) break;
-          if(heap.get(parent).compareTo(heap.get(position)) < 0) break;
+          if(heap.get(parent).compareTo(heap.get(position)) <= 0) break;
           swapIndex(parent, position);
           position = parent;
         }
@@ -49,7 +48,6 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     // This is just helper function to see the elements in the list ]
     // TODO Delete this function
     public void print_queue(){
-      System.out.println("Size is ");
       for(int i = 0; i < heap.size(); i++){
           System.out.println(heap.get(i));
       }
@@ -67,7 +65,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
         if(heap.isEmpty()) throw new IllegalStateException();
         T min_value = (T)heap.get(0);
         // Move end of node to the beginning (top)
-        heap.set(0, heap.get(size()-1));        
+        heap.set(0, heap.get(size()-1));
         heap.remove(size()-1);
         int position = 0;
 
@@ -76,21 +74,23 @@ public class MinPriorityQueue<T extends Comparable<T>> {
         // 0      -> 1,     2
         // 1      -> 3,     4
         // 2      -> 5,     6
-        // Children are multiple 2 away from the parent
+        // Children are multiple of 2 away from the parent
         
-        while(position > size() / 2){
+        while(position < size() / 2){
           int left_child_index = position * 2 + 1; // look at the above example
           int right_child_index = left_child_index + 1;
           // If right child exists and is less than left child,
           // swap it with parent node
-          if (right_child_index < size() && heap.get(left_child_index).compareTo(heap.get(right_child_index)) < 0){
-            // if(heap.get(position) <= heap.get(right_child_index)) break;
-            if(heap.get(position).compareTo(heap.get(right_child_index)) >= 0) break;
+          System.out.println("right_child_index");
+          System.out.println(right_child_index);
+          if (right_child_index < size() && heap.get(left_child_index).compareTo(heap.get(right_child_index)) > 0){
+            System.out.println("Right node is smaller");
+            if(heap.get(position).compareTo(heap.get(right_child_index)) <= 0) break;
             swapIndex(position, right_child_index);
             position = right_child_index;
           }else{
             // If the left child is less than parent, swap it.
-            if(heap.get(position).compareTo(heap.get(left_child_index)) >= 0) break;
+            if(heap.get(position).compareTo(heap.get(left_child_index)) <= 0) break;
             swapIndex(position, left_child_index);
             position = left_child_index;
           }
