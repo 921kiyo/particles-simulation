@@ -53,17 +53,13 @@ public class ParticleSimulation implements Runnable, ParticleEventHandler {
             e.printStackTrace();
         }
 
-        // TODO complete implementing this method
         while(!queue.isEmpty()) {
             
             Event currentEvent = queue.remove();
             lastClock = clock;
-//            System.out.println(lastClock);
             if (currentEvent.isValid()) {
                 
                 clock = currentEvent.time(); // Update time to event's time
-//                System.out.println(clock);
-//                queue.print_queue();break;
                 model.moveParticles(clock - lastClock); // Move particles for this much time
                 
                 currentEvent.happen(this); // Let the current event occur

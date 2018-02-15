@@ -16,6 +16,7 @@ public class TwoParticleCollision extends Collision {
      */
     @Override
     public void happen(ParticleEventHandler h) {
+        // collide() is a static method... no need to call on each instance
         Particle.collide(particles[0], particles[1]);
         h.reactTo(this);
         return;

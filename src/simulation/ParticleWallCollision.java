@@ -21,6 +21,7 @@ public class ParticleWallCollision extends Collision {
      */
     @Override
     public void happen(ParticleEventHandler h) {
+        // collide() is a static method... no need to call on p directly
         Particle.collide(particles[0], w);
         h.reactTo(this);
         return;    
