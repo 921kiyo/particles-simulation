@@ -4,10 +4,6 @@ public class ParticleWallCollision extends Collision {
 
     private Particle p;
     private Wall w;
-    private double t;
-
-
-    // TODO: happen() might need further work
 
     /**
      * Passes self to ParticleEventHandler, which knows
@@ -15,6 +11,7 @@ public class ParticleWallCollision extends Collision {
      */
     @Override
     public void happen(ParticleEventHandler h) {
+        // TODO: Do we need to check isValid() here?
         p.collide(p, w);
         h.reactTo(this);
         return;
