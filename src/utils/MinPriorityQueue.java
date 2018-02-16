@@ -54,20 +54,12 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     }
 
     /**
-    * Helper function to print current queue (not used in final submission)
-    */
-    public void print_queue() {
-        System.out.println("The tree is now: ");
-
-        for (int i = 0; i < heap.size(); i++) {
-            System.out.println(heap.get(i));
-        }
-    }
-
-    /**
     * Removes (and returns) element at top of the queue and repositions queue
     */
     public T remove() {
+        // Make sure there's at least one item in queue first
+        if (heap.isEmpty()) throw new IllegalStateException();
+
         // Saves smallest element (that which is at top of queue)
         T min_value = (T) heap.get(0);
 
