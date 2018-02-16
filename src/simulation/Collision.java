@@ -10,22 +10,16 @@ public abstract class Collision extends AbstractEvent {
      * Constructor for Collision
      */
     public Collision(double time, Particle[] ps) {
-        super(time);
-
+        super(time); // Calls AbstractEvent constructor
 
         numParticles = ps.length; // Will be 1 or 2 only
 
         particles = new Particle[numParticles];
         collisionHistory = new int[numParticles];
-        
-//        particles = ps;
-        
-        // Loop to handle this no matter how many particles passed in
+
         for (int i = 0; i < numParticles; i++) {
-            // Save number of collisions at moment of creation;
-            // This won't change, though particles[i].collisons might
-            particles[i] = ps[i];
-            collisionHistory[i] = ps[i].collisions();
+            particles[i] = ps[i]; // Manually copy particle references
+            collisionHistory[i] = ps[i].collisions(); // Save hits for later ref
         }
     }
 
@@ -34,8 +28,7 @@ public abstract class Collision extends AbstractEvent {
      */
     @Override
     public boolean isValid() {
-        // Check if particle(s) have incremented number of collisions
-        // since the creation of this collision instact
+        // Only false if particles have hit something else since prediction made
         for (int i = 0; i < numParticles; i++) {
             if (particles[i].collisions() != collisionHistory[i]) {
                 return false;

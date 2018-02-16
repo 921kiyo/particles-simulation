@@ -5,7 +5,7 @@ import java.awt.Color;
 public class SimpleSimulation {
 
     private static int N = 50;
-    
+
     public static void main(String[] args) {
         int w  = 600;
         int h  = 600;
@@ -25,13 +25,11 @@ public class SimpleSimulation {
             }
             ps[i] = new Particle(x, y, dx, dy, Particle.BIG, 1, Color.BLUE);
         }
-        
+
         ParticlesModel     model = new ParticlesModel(w, h, ps);
-        ParticleSimulation sim = 
-                new ParticleSimulation("Elastic Collisions in 2D", model);        
+        ParticleSimulation sim =
+                new ParticleSimulation("Elastic Collisions in 2D", model);
         sim.run();
     }
 
 }
-
-

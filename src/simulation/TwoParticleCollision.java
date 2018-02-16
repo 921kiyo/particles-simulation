@@ -2,14 +2,17 @@ package simulation;
 
 public class TwoParticleCollision extends Collision {
 
-    public TwoParticleCollision(Particle p1, Particle p2, double time) {       
+    // Constructor calls Collision, but must send particles as array
+    public TwoParticleCollision(Particle p1, Particle p2, double time) {
         super(time, packageParticles(p1, p2));
     }
 
+    // Constructor helper function, because super() must be first line
     private static Particle[] packageParticles(Particle part1, Particle part2) {
         Particle[] particles = {part1, part2};
         return particles;
     }
+
     /**
      * Passes self to ParticleEventHandler, which knows
      * how to handle collisions individually

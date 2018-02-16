@@ -1,104 +1,126 @@
 package utils;
+
 import java.util.*;
 
 /**
- *
- * @author kiyo
- * @param <T>
- */
+* @author Kiyo Kunii and Sagar Doshi
+* @param <T>
+*/
 public class MinPriorityQueue<T extends Comparable<T>> {
     // has to run with O(log2N)
-     // int pointer;
-     ArrayList<T> heap;
+    ArrayList<T> heap;
+
     public MinPriorityQueue() {
-       // pointer = 0; // Keeps track of the next available index
-       heap = new ArrayList<T>();
+        heap = new ArrayList<T>();
         // Compare between parent and child node, if the child one is greater, switch the two keys
     }
 
     /**
-     * Returns the number of elements currently in the queue.
-     */
+    * Returns the number of elements currently in the queue
+    */
     public int size() {
         return heap.size();
     }
+
     /**
-     * Adds elem to the queue.
-     */
+    * Adds elem to the queue and repositions array
+    */
     public void add(T elem) {
         int position = size();
-        heap.add(position, elem);
+        heap.add(position, elem); // Adds elem to END of queue
 
-        // While position is not at the top,
-        // compare it with child nodes.
-        while( position > 0){
-          int parent = (position + 1) / 2 - 1;
-          // If heap[parent] is the smallest, break the while loop
-          if(heap.get(parent).compareTo(heap.get(position)) <= 0) break;
-          swapIndex(parent, position);
-          position = parent;
+        // While position is not at top, compare with child nodes
+        while (position > 0) {
+            int parent = (position + 1) / 2 - 1;
+
+            // If heap[parent] is the smallest item, break the while loop
+            if (heap.get(parent).compareTo(heap.get(position)) <= 0) {
+                break;
+            }
+
+            // Otherwise, swap parent with child, and reset indices
+            swapIndex(parent, position);
+            position = parent;
         }
     }
 
-    private void swapIndex(int i, int j){
-      T temp = (T)heap.get(i);
-      heap.set(i, heap.get(j));
-      heap.set(j, temp);
-    }
-    // This is just helper function to see the elements in the list ]
-    // TODO Delete this function
-    public void print_queue(){
-      System.out.println("tree is now ");
-      for(int i = 0; i < heap.size(); i++){
-          System.out.println(heap.get(i));
-      }
+    /**
+    * Helper function to change generic items within an array
+    */
+    private void swapIndex(int i, int j) {
+        T temp = (T) heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, temp);
     }
 
     /**
-     * Removes, and returns, the element at the front of the queue.
-     */
+    * Helper function to print current queue (not used in final submission)
+    */
+    public void print_queue() {
+        System.out.println("The tree is now: ");
+
+        for (int i = 0; i < heap.size(); i++) {
+            System.out.println(heap.get(i));
+        }
+    }
+
+    /**
+    * Removes (and returns) element at top of the queue and repositions queue
+    */
     public T remove() {
-      // returns the smallest element, and remove it from the queue
-        // return the smallest element
-        // Remove it, take the bottom right node and put it at the top
-        // After that, compare the two children nodes,
-        // If empty, throw an exception
-//        if(heap.isEmpty()) throw new IllegalStateException();
-        T min_value = (T)heap.get(0);
-        // Move end of node to the beginning (top)
-        heap.set(0, heap.get(size()-1));
-        heap.remove(size()-1);
+        // Saves smallest element (that which is at top of queue)
+        T min_value = (T) heap.get(0);
+
+        // Move node at end of array (bottom-rightmost of tree) to top
+        heap.set(0, heap.get(size() - 1));
+        heap.remove(size() - 1);
         int position = 0;
 
         // Example of tree structure for the priority queue
-        // Parent -> Child, Children
-        // 0      -> 1,     2
-        // 1      -> 3,     4
-        // 2      -> 5,     6
-        // Children are multiple of 2 away from the parent
-        
-        while(position < size() / 2){
-          int left_child_index = position * 2 + 1; // look at the above example
-          int right_child_index = left_child_index + 1;
-          // If right child exists and is less than left child,
-          // swap it with parent node
-          if (right_child_index < size() && heap.get(left_child_index).compareTo(heap.get(right_child_index)) > 0){
-            if(heap.get(position).compareTo(heap.get(right_child_index)) <= 0) break;
-            swapIndex(position, right_child_index);
-            position = right_child_index;
-          }else{
-            // If the left child is less than parent, swap it.
-            if(heap.get(position).compareTo(heap.get(left_child_index)) <= 0) break;
-            swapIndex(position, left_child_index);
-            position = left_child_index;
-          }
+        // Parent -> heap[leftChild], heap[rightChild]
+        // 0      -> 1              , 2
+        // 1      -> 3              , 4
+        // 2      -> 5              , 6
+        // leftChild is (x * 2 + 1) from parent, and rightChild is one further
+
+        // Restructure tree before returning top of queue
+        while (position < size() / 2) {
+            // Get INDICES of children
+            int leftChild = position * 2 + 1;
+            int rightChild = leftChild + 1;
+
+            // If right child exists and is < left, consider swap with top
+            if (rightChild < size() &&
+                heap.get(leftChild).compareTo(heap.get(rightChild)) > 0) {
+
+                // Don't swap with top of queue if top is <= right child
+                if (heap.get(position).compareTo(heap.get(rightChild)) <= 0) {
+                    break;
+                }
+
+                // Otherwise, do swap top of queue with right child
+                swapIndex(position, rightChild);
+                position = rightChild;
+
+            } else { // Either right child nonexistent or <= to left child
+                     // So just perform above check with left child only
+
+                if (heap.get(position).compareTo(heap.get(leftChild)) <= 0) {
+                    break; // Don't do anything if top is already smallest
+                }
+
+                // Otherwise, if left child is smaller, move to top of queue
+                swapIndex(position, leftChild);
+                position = leftChild;
+            }
         }
+
         return min_value;
     }
 
     /**
-     * Returns true if the queue is empty, false otherwise.
-     */
+    * Returns true if the queue is empty, false otherwise.
+    */
     public boolean isEmpty() {
         return (size() == 0);
     }

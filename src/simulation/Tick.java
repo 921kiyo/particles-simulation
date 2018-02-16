@@ -3,9 +3,8 @@ package simulation;
 public class Tick extends AbstractEvent {
 
     public Tick(double time) {
-        super(time);
+        super(time); // Calls AbstractEvent constructor
     }
-    // As a subclass of AbstractEvent, by default calls parent's constructor
 
     /**
      * Returns true if this Tick is (still) valid.

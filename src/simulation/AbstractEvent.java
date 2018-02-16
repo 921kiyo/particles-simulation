@@ -9,7 +9,7 @@ public abstract class AbstractEvent implements Event {
      */
     public AbstractEvent(double time) {
         t = time;
-        
+
     }
 
     /**
@@ -25,9 +25,9 @@ public abstract class AbstractEvent implements Event {
      */
     @Override
     public int compareTo(Event that) {
-        if (t < that.time())  { return -1; }
-        else if (t == that.time()) { return 0; }
-        else { return 1; }
+        if (t < that.time())       { return -1; }
+        else if (t == that.time()) { return 0;  }
+        else                       { return 1;  }
     }
 
 }
